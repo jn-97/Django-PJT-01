@@ -4,10 +4,11 @@
 
 
 {% for review in reviews %}
-
-  {{ review.title }}
-  {{ review.content }}
-  
+  <div>
+    <a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
+    
+    {{ review.content }}
+  </div>
 {% endfor %}
   
   
