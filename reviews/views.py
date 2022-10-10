@@ -1,14 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ReviewForm
+from .models import Review
 
 # Create your views here.
 
 def index(request):
-    pass
+    reviews = Review.objects.all()
+    context = {
+        'reviews': reviews
+    }
+    return render(request, 'reviews/index.html', context)
 
 def create(request):
-    review_form = ReviewForm()
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review_form.save()
+            return redirect('reviews:index')
+    else:
+        review_form = ReviewForm()
     context = {
         'review_form': review_form
     }
-    return render(request, 'reviews/create.html', context)
+    return render(request, 'reviews/create.html', context=context)
+
