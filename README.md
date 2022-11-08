@@ -1,1 +1,1 @@
-# monday_pair
+# 10.10 Django Project
